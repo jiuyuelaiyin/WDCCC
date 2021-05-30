@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="
+    float: left;
+padding-left: 20px;
+padding-top: 20px;
+width: 400px;
+height: 200px;
+background: lightblue;
+padding-right: 20px;
+padding-bottom: 20px;
+margin-left: 400px;
+margin-top: 100px;" >
+    <div >
+        <b>学生成绩录入</b><br>
+
+        姓名&nbsp;&nbsp;&nbsp;
+        <input type="text" id="chinese"><br>
+        语文&nbsp;&nbsp;&nbsp;
+        <input type="text" id="english"><br>
+        数学&nbsp;&nbsp;&nbsp;
+        <input type="text" id="math"><br>
+        <button onclick="addData()">保存</button>
+
+    </div>
+   <br>
+    
+    <div>
+        
+        <table border="1" cellspacing="0" cellpadding="0" style="width: 60%;" id="dataContent">
+            <tr>               
+                <th>姓名</th>                    
+                <th>语文</th>
+                <th>数学</th>
+                <th>操作</th>
+            </tr>    
+            
+        </table>
+    </div>
+    </div>
+</body>
+<script>
+
+    
+    var chinese = document.getElementById("chinese");
+    
+    var english = document.getElementById("english");
+    var math = document.getElementById("math");
+    var dataContent = document.getElementById("dataContent");
+
+    
+    
+
+    function addData(){
+
+        
+        var chineseValue = chinese.value;
+        var englishValue = english.value;
+        var mathValue = math.value;
+
+        var row = dataContent.insertRow();
+
+        
+
+        var chineseCell = row.insertCell();
+        chineseCell.innerText = chineseValue;
+
+       
+
+        var englishCell = row.insertCell();
+        englishCell.innerText = englishValue;
+
+        var mathCell = row.insertCell();
+        mathCell.innerText = mathValue;
+
+        var proceeCell = row.insertCell();
+        proceeCell.innerHTML = '<button onclick="deleteRow(this)">删除</button>'+'<a href="javascript:;" onclick="update2(this)">修改</a>';
+    }
+
+    function deleteRow(btnTag){
+
+        var trNode = btnTag.parentNode.parentNode;
+
+        var rowIndex = trNode.rowIndex;
+
+        dataContent.deleteRow(rowIndex); 
+    }
+
+    function update2(obj){
+        
+        var thistd = obj.parentElement;
+        
+        var chinesetd =thistd.previousSibling;
+        var englishtd = chinesetd.previousSibling;
+        var mathtd = englishtd.previousSibling;
+
+        
+        chinesetd.innerHTML = "<input type='text' value='" +chinesetd.innerText +"'>";
+        englishtd.innerHTML = "<input type='text' value='" +englishtd.innerText +"'>";
+        mathtd.innerHTML = "<input type='text' value='" +mathtd.innerText +"'>";
+        thistd.innerHTML = "<a href='javascript:;'>保存</a>";
+
+        thistd.childNodes[0].onclick = function(){
+            
+            chinesetd.innerHTML = chinesetd.childNodes[0].value;
+            englishtd.innerHTML = englishtd.childNodes[0].value;
+            mathtd.innerHTML = mathtd.childNodes[0].value;
+            
+            thistd.innerHTML =  '<button onclick="deleteRow(this)">删除</button>'+
+            '<a href="javascript:;" onclick="update2(this)">修改</a>';
+            
+        }
+    }
+
+</script>
+</html>
